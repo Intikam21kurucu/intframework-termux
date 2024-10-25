@@ -1,1 +1,1 @@
-=[ {Fore.YELLOW}İntikam21-Framework console v4.0.16-dev-bbf096e{Style.RESET_ALL} ]
+=[ {Fore.YELLOW}İntikam21-Framework console v4.1.09-dev-bbf096e{Style.RESET_ALL} ]
