@@ -72,6 +72,7 @@ inttable.console.run("command")
 
 [![Github Badge](https://github.com/Intikam21kurucu/intframework/blob/Intikam21kurucu-patch-1/%5BOrijinal%20boyut%5D%20Renkli%20Modern%20Yuvarlak%20Okul%20Logo_20240423_141004_0000.png?style=quare&labelColor=000&logo=Github&logoColor=white&link=link)](link) 
 
+[![Github Badge](https://github.com/Intikam21kurucu/intframework/blob/%C4%B0ntframeworkV4/IMG_20240916_191945.jpg)](link)
 
 # İNSTALL KALİ:
 ````apt update & apt upgrade
