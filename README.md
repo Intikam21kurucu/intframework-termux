@@ -72,8 +72,6 @@ inttable.console.run("command")
 
 [![Github Badge](https://github.com/Intikam21kurucu/intframework/blob/Intikam21kurucu-patch-1/%5BOrijinal%20boyut%5D%20Renkli%20Modern%20Yuvarlak%20Okul%20Logo_20240423_141004_0000.png?style=quare&labelColor=000&logo=Github&logoColor=white&link=link)](link) 
 
-[![Github Badge](https://github.com/Intikam21kurucu/intframework/blob/%C4%B0ntframeworkV4/IMG_20240916_191945.jpg)](link)
-
 # İNSTALL KALİ:
 ````apt update & apt upgrade
 sudo apt install git
@@ -97,8 +95,8 @@ chmod +x start_kali.sh
 system photos:
 ![İntikam21 photos:](https://github.com/Intikam21kurucu/intframework/blob/d5cb19b49875d0eb9a949c379202999d5c609e22/Photos/IMG_20241008_184826.jpg) 
 
-
-
+[![Photo2](https://github.com/Intikam21kurucu/intframework/blob/%C4%B0ntframeworkV4/IMG_20241027_122034.jpg)
+[![Github Badge](https://github.com/Intikam21kurucu/intframework/blob/%C4%B0ntframeworkV4/IMG_20240916_191945.jpg)]
 
 # İNSTALL TERMUX
 ````apt update && apt upgrade
