@@ -24,7 +24,7 @@ We apologize, intconsoleV4 is not yet complete, but this will not be that easy b
 
 # OLD GİF
 
------------------------------------------------    ![](https://github.com/Intikam21kurucu/intmages/blob/main/Start.gif)
+-----------------------------------------------![](https://github.com/Intikam21kurucu/intmages/blob/main/Start.gif)
 
 -----------------------------------------------
 
