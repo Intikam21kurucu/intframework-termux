@@ -5,7 +5,7 @@ class WebShellUploader:
         self.prompt = 'int4 > '
 
     def run(self):
-        target_url = input(self.prompt + "int4 webshell_uploader[Enter The Target Url] >")
+        target_url = input("int4 webshell_uploader[Enter The Target Url] >")
         shell_file = input("int4 webshell_uploader[Enter path to shell file] >")
         self.upload_shell(target_url, shell_file)
 
