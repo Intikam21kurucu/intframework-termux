@@ -7,12 +7,13 @@ url="https://github.com/Intikam21kurucu/intframework"
 license=('GPL')
 depends=('python' 'python-requests' 'python-scrapy')
 makedepends=('git')
-source=("$url/archive/refs/tags/v$pkgver.tar.gz")
+source=("SKIP")
 sha256sums=('SKIP')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   chmod +x intconsole
+  export INTFRAMEWORK_PATH="/usr/opt/intframework/"
 }
 
 package() {
