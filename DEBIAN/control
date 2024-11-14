@@ -1,22 +1,13 @@
-pkgname=intframework
-pkgver=4.1.9
-pkgrel=1
-pkgdesc="The best Hacking and Modular Framework"
-arch=('any')
-url="https://github.com/Intikam21kurucu/intframework"
-license=('GPL')
-depends=('python' 'python-requests' 'python-scrapy')
-makedepends=('git')
-source=("SKIP")
-sha256sums=('SKIP')
+Source: intframework
+Section: utils
+Priority: optional
+Maintainer: intikam21 intapp21@gmail.com
+Build-Depends: debhelper (>= 11), python3, python3-requests, python3-scrapy
+Standards-Version: 4.5.0
+Homepage: https://github.com/Intikam21kurucu/intframework
 
-build() {
-  cd "$srcdir/$pkgname-$pkgver"
-  chmod +x intconsole
-  export INTFRAMEWORK_PATH="/usr/opt/intframework/"
-}
-
-package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  install -Dm755 intconsole "$pkgdir/usr/bin/intconsole"
-}
+Package: intframework
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3, python3-requests, python3-scrapy
+Description: The best Hacking and Modular Framework
+ The Intikam21 Framework provides extensive hacking and modular features.
