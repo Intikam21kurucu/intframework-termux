@@ -1,0 +1,21 @@
+pkgname=intframework
+pkgver=4.1.9
+pkgrel=1
+pkgdesc="The best Hacking and Modular Framework"
+arch=('any')
+url="https://github.com/Intikam21kurucu/intframework"
+license=('GPL')
+depends=('python' 'python-requests' 'python-scrapy')
+makedepends=('git')
+source=("$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  chmod +x intconsole
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  install -Dm755 intconsole "$pkgdir/usr/bin/intconsole"
+}
