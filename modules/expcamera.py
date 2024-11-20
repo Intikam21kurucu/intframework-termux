@@ -517,6 +517,4 @@ if __name__=='__main__':
     except Exception:
         print("Use python3 expcamera.py -h or ./expcamera.py -h for more help")
 
-while True:
-	help_input = input("┌──(intikam21-cyber@root[exp-cam]\n└─$ ")
-	os.system(help_input)
+# whatttt????
