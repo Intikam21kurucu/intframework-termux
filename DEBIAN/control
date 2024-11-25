@@ -1,5 +1,5 @@
 Source: intframework
-Section: utils
+Section: pentest
 Priority: optional
 Maintainer: intikam21 intapp21@gmail.com
 Build-Depends: debhelper (>= 11), python3, python3-requests, python3-scrapy
