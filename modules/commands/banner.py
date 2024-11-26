@@ -400,7 +400,7 @@ def menu_banner():
         print("" + Fore.RESET)
         print(f"""
 =[ {Fore.YELLOW}İntikam21-Framework console v4.3.56-dev-bbf096e{Style.RESET_ALL} ]
-+ -- --=[ 2456 exploits - 1248 auxiliary - 500 post]
++ -- --=[ 2456/120 exploits - 1248 auxiliary - 50 post]
 + -- --=[ 1465 payloads - 50 encoders - 1 nops     ]
 + -- --=[ 40 evasion -                             ]
 + -- --=[ Osint Framework - 2 shodan - 90 network  ]
