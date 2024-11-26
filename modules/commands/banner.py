@@ -399,7 +399,7 @@ ___ _   _ _____ ___ _  __    _    __  __ ____
 def menu_banner():
         print("" + Fore.RESET)
         print(f"""
-=[ {Fore.YELLOW}İntikam21-Framework console v4.0.15-dev-bbf096e{Style.RESET_ALL} ]
+=[ {Fore.YELLOW}İntikam21-Framework console v4.3.56-dev-bbf096e{Style.RESET_ALL} ]
 + -- --=[ 2456 exploits - 1248 auxiliary - 500 post]
 + -- --=[ 1465 payloads - 50 encoders - 1 nops     ]
 + -- --=[ 40 evasion -                             ]
