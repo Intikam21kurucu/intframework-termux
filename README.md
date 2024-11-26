@@ -10,7 +10,7 @@
 ![Build](https://img.shields.io/badge/BUILD-1079-red.svg)
 ![Modules](https://img.shields.io/badge/modules-547-red.svg) 
 
-**İf this repo 10 stars i share intpro for free! **
+*İf this repo 10 stars i share intpro for free! *
 
 
 
