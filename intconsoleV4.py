@@ -43,6 +43,9 @@ import random
 import urllib.request
 from queue import Queue
 import sqlite3
+import json
+import requests
+import subprocess
 from modules.commands.banner import *
 from modules.commands.dns_lookup import *
 
@@ -653,7 +656,53 @@ def scan5115(interface):
         print(f"BSSID (MAC): {network.address}")
         print(f"Sinyal Gücü: {network.signal} dBm")
         print(f"Şifreleme: {network.encryption_type}\n")
+def use_module(command):
+    global modules, modulename
+    try:
+        # `intframework::auxiliary::module_name` gibi bir komut bekleniyor.
+        if command.startswith("use intframework::"):
+            module_path = command.split("::", 1)[1].replace("::", "/")  # Dosya yolu formatına çevir
+            modulename = module_path.split("/")[-1]
+            modules = module_path
+            get_input(modules=module_path, modulename="module")
+            print(f"Module {modulename} selected.")
+        else:
+            print("Invalid command. Use 'use intframework::path::module_name'.")
+    except Exception as e:
+        print(f"Error: {e}")
 
+def check_if_argparse_used(module_path):
+    """Argparse kullanımı kontrol eder"""
+    try:
+        with open(module_path, "r") as f:
+            content = f.read()
+            if 'argparse' in content:
+                return True
+        return False
+    except Exception as e:
+        print(f"Error reading the module file: {e}")
+        return False
+
+def run_module(skar3792=None):
+    global modules, running_pid
+    if modules:
+        try:
+            # Modülü `python3` ile çalıştır
+            print(f"Running {modules}...")
+            os.system(f"python3 {modules}.py {skar3792}")
+        except:
+        	pass
+    else:
+        print("No module loaded. Use 'use intframework::path::module_name' to load one.")
+
+def monitor_process(proc):
+    """Çalışan modülü izler"""
+    global running_pid
+    while True:
+        if proc.poll() is not None:  # Process bitti mi?
+            print(f"Module {modules} has stopped.")
+            return
+        time.sleep(1)  # Her saniye kontrol et
 def get_input(modules=None, modulename=None, cdn=None):
     global prompt
     get_meterpreter()
@@ -678,6 +727,8 @@ global st
 from uuid_manager import *
 load_sessions()
 create_session("intrpc", "root@int")
+global running_pid
+running_pid = None        
 while True:
     help_input = input(prompt)
     if help_input.lower() == "help":
@@ -1285,18 +1336,6 @@ Examples:
     		load_sessions()
     		session_listele()
     		cleanup()
-    if "use" in help_input:
-    	user = input(Fore.RED + "int4 " + Fore.RESET + "(" + Fore.RED + "selecter" + Fore.RESET + ")"+ f"[{Fore.RED + Style.BRIGHT} Select exploiter or modular + {Fore.RESET}]" + " >" + Style.RESET_ALL)
-    	if user == "modular":
-    		os.system("python3 modular.py")
-    	if user == "exploiter":
-    		os.system("python3 exploiter.py")
-    if "set" in help_input:
-    	user = input(Fore.RED + "int4 " + Fore.RESET + "(" + Fore.RED + "selecter" + Fore.RESET + ")"+ f"[{Fore.RED + Style.BRIGHT} Select exploiter or modular  {Fore.RESET}]" + " >" + Style.RESET_ALL)
-    	if user == "modular":
-    		os.system("python3 modular.py")
-    	if user == "exploiter":
-    		os.system("python3 exploiter.py")
     if help_input == "exploiter":
     	print("new exploiter session created")
     	os.system("python3 exploiter.py")
@@ -1324,6 +1363,15 @@ Examples:
     	import network_scan
     	from network_scan import *
     	scan_network()
+    if help_input.startswith("use intframework::"):
+        use_module(help_input)
+    if help_input.startswith("run") and "<" in help_input and ">" in help_input:
+        start_index = help_input.find('<') + 1
+        end_index = help_input.find('>')
+        extracted_text = help_input[start_index:end_index]
+        run_module(skar3792=extracted_text)
+    if help_input == "run":
+        run_module()
     if help_input == "osint":
     	print("https://osintframework.com/")
     if help_input == "whoami":
