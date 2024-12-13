@@ -46,6 +46,10 @@ import sqlite3
 import json
 import requests
 import subprocess
+import os
+import pathlib
+import colorama
+from colorama import Fore, Back, Style
 from modules.commands.banner import *
 from modules.commands.dns_lookup import *
 
@@ -682,6 +686,101 @@ def check_if_argparse_used(module_path):
     except Exception as e:
         print(f"Error reading the module file: {e}")
         return False
+# Directories to search
+dirs_int = ["intPRO", "modules", "PHİSHERS", "tools"]
+
+def list_all_files(directories):
+    """
+    List all files in the specified directories
+    - directories: Directories to search in.
+    """
+    file_paths = []
+    
+    # Traverse each directory and its subdirectories
+    for directory in directories:
+        base_path = pathlib.Path(directory)
+        
+        if not base_path.exists():
+            print(Fore.RED + f"[!] Directory not found: {directory}")
+            continue
+        
+        for file in base_path.rglob('*'):  # Use rglob to search all files
+            if file.is_file():  # Only add files
+                file_paths.append(file)
+                
+    return file_paths
+
+def search_in_file(file_path, search_term):
+    """
+    Search for a term in a file and return the matching lines
+    - file_path: The file to search in.
+    - search_term: The term to search for.
+    """
+    matching_lines = []
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
+            for line in file:
+                if search_term.lower() in line.lower():  # Case-insensitive search
+                    matching_lines.append(line.strip())
+    except Exception as e:
+        print(Fore.RED + f"[!] Error: Could not read the file {file_path}: {e}")
+    
+    return matching_lines
+
+def display_files(file_paths):
+    """
+    Display the list of files found
+    """
+    if file_paths:
+        print(Fore.GREEN + Style.BRIGHT + "[*] All Files:")
+        for file in file_paths:
+            print(Fore.CYAN + f"  [+] {str(file)}")
+    else:
+        print(Fore.RED + "[!] No files found.")
+
+def search(files, term):
+    """
+    Search for a term in all files
+    - files: List of files to search in.
+    - term: The term to search for.
+    """
+    search_results = {}
+    
+    for file in files:
+        matching_lines = search_in_file(file, term)
+        if matching_lines:
+            search_results[file] = matching_lines
+    
+    return search_results
+
+def display_search_results(results):
+    """
+    Display the search results
+    """
+    if results:
+        print(Fore.GREEN + Style.BRIGHT + "\n[*] Search Results:")
+        for file, lines in results.items():
+            print(Fore.YELLOW + f"\n[+] {file}:")
+            for line in lines:
+                print(Fore.CYAN + f"    [*] {line}")
+    else:
+        print(Fore.RED + "[!] No matches found.")
+
+def us_search(search_term):
+    """
+    Perform a search using the given search term in the specified directories.
+    - search_term: The term to search for.
+    """
+    # List all files in the directories
+    file_paths = list_all_files(dirs_int)
+
+    # Perform the search
+    results = search(file_paths, search_term)
+
+    # Display the search results
+    display_search_results(results)
+
 
 def run_module(skar3792=None):
     global modules, running_pid
@@ -733,82 +832,70 @@ while True:
     help_input = input(prompt)
     if help_input.lower() == "help":
     	print("""
-General
-==========
-		|COMMAND|         |Function|
-		---------------------		 -----------------
-		mode-{mode-name}	-switches to that mode
-		use						-use commands
-		set                          -set a settings
-		jobs                         -see a jobs
-		whoami                 -see a name
-		neofetch                -see a system
-		item					   -Call it with the item command without using callers like Python
-		search                   -Search in the console
-		star						-chmodding tools
-		introjan				 -The best Trojan Horse
-		oip					     -informa]tion gathering tool
-		banner 				-using banner tutorial
-		intshark				-If you can't find anything, type intshark and find additional tools that we don't make or don't recognize
-		show					-show commands or tools or exploits
-		back					-Back to term or back to console
-		break				   -Break to while
-		int install			-install packages 
-		connect              -connect a ip
-		color				   -Term color
-		run 					 - Run modules
-		monitor              - running web on virtual pc or console (mode-on needed)
-		load_plugins     - usage load_plugins (plugin path)
-		run_plugins       - runing plugins
-		list_plugins       - * * *
-		db_nmap          - database nmap
-		session            - manage session
-		add_module    -adding your module to intframework
-USING COMMANDS
-==================
-        |Command|         |Function|
-        ------------------          ---------------
-          use                    -using modules
-          bset                   -your special settings
-          set                     -for modularity settings
-          show                 -showing modules
-          exploit               -run exploits
-          run                     -running modules
+IntFramework Help Menu
+==============================
 
-DB COMMANDS
-==============
-      |Command|        |Function|
-      -------------------        ----------------
-      db_connect      - connecting database
-      db_list               - listing db
-      db_disconnect  - disconnecting database
-      
-SEARCHING
-===========
-    |Command|       |Function|
-    -------------------       ---------------
-    search                 -searching commands
-    py-search            - searching payloads
-	exp-search         - searching exploits
-	show                   - showing your want module
-	info                     - infos for your module
+General Commands
+----------------
+Command          - Function
+mode-{mode-name} - Switch to a specific mode
+use              - Use a command
+set              - Configure settings
+jobs             - View active jobs
+whoami           - Display the current username
+neofetch         - Display system information
+item             - Call an item without using callers like Python
+search           - Search within the console
+star             - Chmod tools
+introjan         - The best Trojan Horse
+oip              - Information gathering tool
+banner           - Display banner tutorial
+intshark         - Find additional tools not recognized by default
+show             - Display available commands, tools, or exploits
+back             - Return to the previous mode or terminal
+break            - Exit a loop
+int install      - Install required packages
+connect          - Connect to an IP
+color            - Change terminal colors
+run              - Execute modules
+monitor          - Run a web interface on a virtual PC or console (mode-on required)
+load_plugins     - Load plugins from a specified path
+run_plugins      - Run loaded plugins
+list_plugins     - List all available plugins
+db_nmap          - Database-integrated Nmap scanning
 
-PLUGIN COMMANDS
-==================
-    |Command|        |Function|
-    ------------------         ----------------
-    load_plugins        - add path and loading plugin
-    list_plugins          - listing plugins
-    run_plugins         - running plugins
+DB Commands
+-----------
+Command          - Function
+db_connect       - Connect to a database
+db_list          - List available databases
+db_disconnect    - Disconnect from the database
 
-			
-			
-HELLO, WE ARE THE İNTİKAM21 CYBER TEAM, THE REASON WE MADE THIS TOOL IS TO EDUCATE PEOPLE WHO LEARN HACKING, ONLY MALWARE BEHAVIOR BY THE USER OR INFECTION OF A SYSTEM IS NOT UNDER OUR RESPONSIBILITY, GOOD WORK🙋
-			[intweb]Web scanner for intikam21 users
-			[intcam]Cam Hack for intikam21 users
-			
-			we are working...		
-		""")	
+Searching Commands
+------------------
+Command          - Function
+search           - Search for commands
+py-search        - Search for payloads
+exp-search       - Search for exploits
+show             - Show desired modules
+info             - Get information about a module
+
+Plugin Commands
+---------------
+Command          - Function
+load_plugins     - Load plugins from a specified path
+list_plugins     - List all available plugins
+run_plugins      - Run loaded plugins
+
+HELLO, WE ARE THE İNTİKAM21 CYBER TEAM!  
+The reason we made this tool is to educate people interested in hacking.  
+Any malicious behavior or system infection caused by the user is not our responsibility.  
+
+[intweb] Web scanner for Intikam21 users  
+[intcam] Cam Hack for Intikam21 users  
+
+We are working...
+""")	
     if help_input.startswith("py-search" or "payload-search") and help_input.endswith("''"):
     	    if help_input.startswith("payload-search '") and help_input.endswith("'"):
     	    	term = user_input[len("payload-search '"):-1]
@@ -937,16 +1024,6 @@ Examples:
 | /intframework/modules/exploits/ac68.py/             |
 +------------------------------------------------------------------------+
     	""")
-    elif help_input.startswith("search '") and help_input.endswith("'"):
-	   # Extract module name from user input
-        query = help_input[8:-1]  # Remove "search'" prefix and "'" suffix to get the module name
-        results = search(modules, query)
-        if results:
-        	print("Search results:")
-        for modul, description in results.items():
-        	print(f"{modul}: {description}")
-        else:
-        	print(f"No results found for '{query}'.")
     if help_input.startswith("meterpreter") and help_input.endswith(""):
     			os.system("python3 intmeterpreter.py start")
     			add_job("meterpreter")
@@ -1374,6 +1451,13 @@ Examples:
         run_module()
     if help_input == "osint":
     	print("https://osintframework.com/")
+    if help_input.startswith("search"):
+    	termof_search = help_input[7:]
+    	if termof_search:
+    		us_search(termof_search)
+    	else:
+    		fpth = list_all_files(dirs_int)
+    		display_files(fpth)
     if help_input == "whoami":
     	username = getpass.getuser()
     	# Sistemin platform bilgisini alma
