@@ -70,7 +70,7 @@ def banner():
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⢻⡀⠀⠀⠙⠷⣦⣄⣈⣉⣉⣠⣤⡶⠟⠁⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠇⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀intpro⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀ for Kali Linux
+⠀⠀⠀⠀⠀⠀⠀⠀⠀ for TERMUX
 {Fore.RESET}⠀⠀⠀⠀⠀⠀⠀
     """,
     Fore.RED + """ 
@@ -215,8 +215,7 @@ def banner():
    """,
    """
 +-------------------------------------------------------+
-|  {Fore.RED}İNTPRO FOR KALİLİNUX {Fore.RESET}       
-  |
+|  {Fore.RED}İNTPRO FOR TERMUX    {Fore.RESET}                       |
 +---------------------------+---------------------------+
 |     {Fore.BLUE} __________________ {Fore.RESET}  |                           |
 | {Fore.BLUE} ==c(______(o(______(_()  | |""""""""""""|======[***  |{Fore.RESET}
@@ -304,7 +303,7 @@ def banner():
 def menu_banner():
         print("" + Fore.RESET)
         print(f"""
-=[          {Fore.YELLOW}İNTPRO console v1.2.30-dev-bbf096e1f{Style.RESET_ALL}                 ]=
+=[          {Fore.YELLOW}İNTPRO console v1.2.90-dev-bbf096e1f{Style.RESET_ALL}                 ]=
 + --=[ 2456 exploits        - 1248 auxiliary    - 500 post       ]=
 + --=[ 1465 payloads        - 50 encoders       - 1 nops         ]=
 + --=[ 40 evasion           - 10 PRO MODULES                     ]=
@@ -313,3 +312,4 @@ def menu_banner():
 
 İntikam21 Documentation:{Style.RESET_ALL} https://sites.google.com/view/intilam21-cyber-team/kay%C4%B1t
 """ + Fore.RESET)
+
