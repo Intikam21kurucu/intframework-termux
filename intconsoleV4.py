@@ -158,14 +158,14 @@ try:
 except:
 	pass
 def manager():
-	import PluginManager
-	manager = PluginManager.PluginManager()
+	import plugin_manager as PluginManager
+	manager = PluginManager.PluginManager(plugin_dir="plugins", event_manager=event_manager)
 
 
 
 init(autoreset=True)
-import PluginManager
-pg_manager = PluginManager.PluginManager()
+import plugin_manager as PluginManager
+pg_manager = PluginManager.PluginManager(plugin_dir="plugins")
 
 import os
 from colorama import Fore
@@ -359,7 +359,6 @@ def kill_job(job_id):
     else:
         print(f"No job found with ID: {job_id}")
 def exit():
-	print("BYE BYE")
 	os.system("exit")
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -820,7 +819,7 @@ menu_banner()
 global help_input
 global valid_commands
 valid_commands = {
-"neofetch", "com-help", "intshark", "oip", "introjan", "intai", "track", "build", "mode-admin", "use", "set", "show", "build", "mode-", "back", "item", "search", "show commands", "int install", "connect", "int", "install", "mode-ninja", "int install mode-ninja", "int install git", "int install aichat", "use", "exploit", "bset", "banner", "py-search", "payload-search", "exp-search", "exploit-search", "jobs", "jobs -k", "dns", "help", "use ", "intcrawler", "searchuser", "mailsearch", "phonesearch", "connectbot", "meterpreter", "shotgun", "imei", "exp-search", "py-search", "run", "show", "whoI", "intattack", "load_plugins", "list_plugins", "run_plugins", "monitor", "add_module", "intattack", "exploiter", "modular","wifi_scan", "network_scan", "wardriving"
+"neofetch", "com-help", "intshark", "oip", "introjan", "intai", "track", "build", "mode-admin", "use", "set", "show", "build", "mode-", "back", "item", "search", "show commands", "int install", "connect", "int", "install", "mode-ninja", "int install mode-ninja", "int install git", "int install aichat", "use", "exploit", "bset", "banner", "py-search", "payload-search", "exp-search", "exploit-search", "jobs", "jobs -k", "dns", "help", "use ", "intcrawler", "searchuser", "mailsearch", "phonesearch", "connectbot", "meterpreter", "shotgun", "imei", "exp-search", "py-search", "run", "show", "whoI", "intattack", "load_plugins", "list_plugins", "run_plugins", "monitor", "add_module", "intattack", "exploiter", "modular","wifi_scan", "network_scan", "wardriving", 'int', 'hydra', 'dragon', "tunnel", "portfwd", "route", #more more more.....
     }
 global st
 from uuid_manager import *
@@ -835,57 +834,104 @@ while True:
 IntFramework Help Menu
 ==============================
 
-General Commands
-----------------
-Command          - Function
-mode-{mode-name} - Switch to a specific mode
-use              - Use a command
-set              - Configure settings
-jobs             - View active jobs
-whoami           - Display the current username
-neofetch         - Display system information
-item             - Call an item without using callers like Python
-search           - Search within the console
-star             - Chmod tools
-introjan         - The best Trojan Horse
-oip              - Information gathering tool
-banner           - Display banner tutorial
-intshark         - Find additional tools not recognized by default
-show             - Display available commands, tools, or exploits
-back             - Return to the previous mode or terminal
-break            - Exit a loop
-int install      - Install required packages
-connect          - Connect to an IP
-color            - Change terminal colors
-run              - Execute modules
-monitor          - Run a web interface on a virtual PC or console (mode-on required)
-load_plugins     - Load plugins from a specified path
-run_plugins      - Run loaded plugins
-list_plugins     - List all available plugins
-db_nmap          - Database-integrated Nmap scanning
+General Commands  
+----------------------  
+Command            - Function 
+======================= 
+help               - Show help for commands  
+exit               - Exit the console  
+banner             - Display or customize the banner tutorial  
+clear              - Clear the console screen  
+use                - Select a module to use  
+show               - Display available commands, tools, or exploits  
+info               - Get detailed information about the selected module  
+run                - Execute the selected module  
+jobs               - View and manage active jobs  
+kill               - Terminate a specific job  
+db_connect         - Connect to a database  
+db_list            - List all available databases  
+db_disconnect      - Disconnect from the current database  
+db_nmap            - Perform database-integrated Nmap scanning  
+route              - Add or view routing for specific IPs  
+portfwd            - Set up port forwarding rules  
+tunnel             - Configure and manage routing tunnels  
+connect            - Connect to a specified IP address  
+neofetch           - Display detailed system information  
+wifi_scan          - Scan for nearby Wi-Fi networks  
+network_scan       - Perform a network scan to discover devices  
+wardriving         - Map and track Wi-Fi networks using GPS  
+dragon             - Launch the Dragon brute-force tool  
+introjan           - Build and deploy advanced Trojan Horses  
+oip                - Search open ports on a target system  
+intcrawler         - Crawl and gather data from websites  
+usersearcher       - Search for information about specific users
+mailsearcher       - Search for email addresses linked to targets
+intweb             - Perform web application scanning and analysis
+intninja           - Access Ninja tools for stealth operations  
+intmail            - Search for email-related vulnerabilities  
+intcam             - A camera hacking tool for Intikam21 users  
 
-DB Commands
------------
-Command          - Function
-db_connect       - Connect to a database
-db_list          - List available databases
-db_disconnect    - Disconnect from the database
+Module Commands  
+----------------  
+Command            - Function
+=======================
+use                - Select a module to use  
+show               - Display available commands, tools, or exploits  
+info               - Get detailed information about the selected module  
+run                - Execute the selected module  
 
-Searching Commands
-------------------
-Command          - Function
-search           - Search for commands
-py-search        - Search for payloads
-exp-search       - Search for exploits
-show             - Show desired modules
-info             - Get information about a module
+Database Commands  
+------------------  
+Command            - Function  
+========================
+db_connect         - Connect to a database  
+db_list            - List all available databases  
+db_disconnect      - Disconnect from the current database  
+db_nmap            - Perform database-integrated Nmap scanning  
 
-Plugin Commands
----------------
-Command          - Function
-load_plugins     - Load plugins from a specified path
-list_plugins     - List all available plugins
-run_plugins      - Run loaded plugins
+Networking Commands  
+--------------------  
+Command            - Function  
+======================
+route              - Add or view routing for specific IPs  
+portfwd            - Set up port forwarding rules  
+tunnel             - Configure and manage routing tunnels  
+connect            - Connect to a specified IP address  
+
+Auxiliary Commands  
+-------------------  
+Command            - Function  
+======================
+neofetch           - Display detailed system information  
+wifi_scan          - Scan for nearby Wi-Fi networks  
+network_scan       - Perform a network scan to discover devices  
+wardriving         - Map and track Wi-Fi networks using GPS  
+
+Attacking Commands  
+-------------------  
+Command            - Function  
+========================
+dragon             - Launch the Dragon brute-force tool  
+introjan           - Build and deploy advanced Trojan Horses  
+
+OSINT Commands  
+---------------  
+Command            - Function  
+======================
+oip                - Search open ports on a target system  
+intcrawler         - Crawl and gather data from websites  
+usersearcher       - Search for information about specific users  
+mailsearcher       - Search for email addresses linked to targets  
+
+Specialized Tools  
+------------------  
+Command            - Function  
+======================
+intweb             - Perform web application scanning and analysis  
+intninja           - Access Ninja tools for stealth operations  
+intmail            - Search for email-related vulnerabilities  
+intcam             - A camera hacking tool for Intikam21 users  
+
 
 HELLO, WE ARE THE İNTİKAM21 CYBER TEAM!  
 The reason we made this tool is to educate people interested in hacking.  
@@ -895,7 +941,11 @@ Any malicious behavior or system infection caused by the user is not our respons
 [intcam] Cam Hack for Intikam21 users  
 
 We are working...
-""")	
+""")
+    if help_input == "wifi_scan":
+    	scan_wifispy()
+    else:
+    	print("not rooted")
     if help_input.startswith("py-search" or "payload-search") and help_input.endswith("''"):
     	    if help_input.startswith("payload-search '") and help_input.endswith("'"):
     	    	term = user_input[len("payload-search '"):-1]
@@ -1136,33 +1186,30 @@ Examples:
     	else:
     		pass	
     if help_input.lower().startswith("mailsearcher"):
-    	if get_input(cdn="osint&int"):
-    		hel = help_input[help_input.find("mailsearcher"):]
-    		s = os.getcwd()
-    		os.system("cd $INTFRAMEWORK_PATH && cd modules")
-    		os.system("python3 mailsearcher.py"+hel)
-    		os.system(f"cd {s}")
+    	hel = help_input[help_input.find("mailsearcher"):]
+    	s = os.getcwd()
+    	os.system("cd $INTFRAMEWORK_PATH && cd modules")
+    	os.system("python3 mailsearcher.py"+hel)
+    	os.system(f"cd {s}")
     if help_input.startswith("usersearcher"):
-    	if get_input(cdn="osint&int"):
-    		hel = help_input[help_input.find("usersearcher"):]
-    		s = os.getcwd()
-    		os.system("cd $INTFRAMEWORK_PATH && cd modules")
-    		os.system("python3 usersearcher.py"+hel)
-    		os.system(f"cd {s}")
+    	hel = help_input[help_input.find("usersearcher"):]
+    	s = os.getcwd()
+    	os.system("cd $INTFRAMEWORK_PATH && cd modules")
+    	os.system("python3 usersearcher.py"+hel)
+    	os.system(f"cd {s}")
     if help_input.startswith("shotgun"):
-    	if get_input(cdn="osint&int"):
-    		hel = help_input[help_input.find("shotgun "):]
-    		s = os.getcwd()
-    		os.system("cd $INTFRAMEWORK_PATH && cd modules")
-    		os.system(f"python3 shotgun.py {hel}" if hel else "python3 shotgun.py")
-    		os.system(f"cd {s}")
+    	hel = help_input[help_input.find("shotgun "):]
+    	s = os.getcwd()
+    	os.system("cd $INTFRAMEWORK_PATH && cd modules")
+    	os.system(f"python3 shotgun.py {hel}" if hel else "python3 shotgun.py")
+    	os.system(f"cd {s}")
     if help_input.startswith("intcrawler"):
-    	if get_input(cdn="osint&int"):
-    		hel = help_input[help_input.find("intcrawler "):]
-    		s = os.getcwd()
-    		os.system("cd $INTFRAMEWORK_PATH && cd modules")
-    		os.system("python3 intcrawler.py {hel}" if hel else "python3 intcrawler.py.")
-    		os.system(f"cd {s}")
+    	hel = help_input[help_input.find("intcrawler "):]
+    	s = os.getcwd()
+    	os.system("cd $INTFRAMEWORK_PATH && cd modules")
+    	os.system("python3 intcrawler.py {hel}" if hel else "python3 intcrawler.py.")
+    	os.system(f"cd {s}")
+    	
     elif help_input.lower().startswith("back"):
     	get_input()
     elif help_input.lower().startswith("info" or "get-help"):
@@ -1232,9 +1279,8 @@ Examples:
     			print("""
     			Commands    Function
     		   ==========  =========
-    		    modules        using intmodules
+    intframework::modules        using intmodules
     		    exploit            using exploits
-    		    exploit/          using exploits but path
     		    payloads       using payloads
     		    auxiliary        using auxiliary modules
     		    shodan          using shodan
@@ -1244,7 +1290,11 @@ Examples:
     		    scanners       using scanner
     		    
     		    example:
-    		    	use modules /intframework/modules/intcrawler/
+    		    	use intframework::modules::AUTO:ctf
+    		    
+    		    we are developed this framework this framework uses :: not / 
+    		    Please do not contact us for this. 
+    		    	
     			""")
     elif help_input.startswith("connect"):
     	ip_chef = help_input[help_input.lower().find("CHOSTS=" or "CHOST= "):]
@@ -1315,17 +1365,6 @@ Examples:
 			""")
     	else:
     		pass
-    elif help_input == "anim-exit":
-    	s = os.getcwd()
-    	try:
-    		os.system("cd $INTFRAMEWORK_PATH && cd modules")
-    	except:
-    		pass
-    	os.system("python3 intly.py")
-    	os.system(f"cd {s}")
-    	exit() 
-    else:
-    	exit()
 
     if help_input == "show scanners":
     	print("""
@@ -1367,10 +1406,6 @@ Examples:
     		continue
     else:
     	pass
-    if help_input == "wifi_scan":
-    	scan_wifispy()
-    else:
-    	print("not rooted")
     if help_input.startswith("db_nmap"):
         # Nmap komutunu çalıştır
         nmap_scanner = NmapScanner()
@@ -1395,8 +1430,8 @@ Examples:
     	db_list()
     if help_input  == "db_disconnect":
     	db_disconnect()
-    if help_input.startswith("load_plugins"):
-    	arg = help_input[13:]
+    if help_input.startswith("load "):
+    	arg = help_input[5:]
     	try:
     		pg_manager.load_plugin(arg)
     	except:
@@ -1404,6 +1439,8 @@ Examples:
     		pass
     else:
     	pass
+    if help_input.startswith("activate_plugins"):
+    	pg_manager.load_plugins()
     if help_input.startswith("session"):
     	d = help_input[8:]
     	if d.startswith("-k"):
@@ -1420,13 +1457,6 @@ Examples:
     	os.system("python3 modular.py")
     if help_input == "list_plugins":
     	pg_manager.list_plugins()
-    else:
-    	pass
-    if help_input == "run_plugins":
-    	hpl_list = help_input.split()
-    	command = hpl_list[2]
-    	args = hpl_list[3]
-    	manager.run_command(command, *args)
     else:
     	pass
     if help_input == "neofetch":
@@ -1464,15 +1494,50 @@ Examples:
     	platform_info = platform.system()
     	print(Fore.GREEN + username)
     help = {"com-help" or "Com-help" or "Com-Help" or "com-HELP" or "COM-help" or "COM-HELP"}
+    if help_input.startswith("route"):
+    	routeip = help_input[6:]
+    	if routeip:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/route.py {routeip}")
+    	else:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/route.py")
+    if help_input.startswith("portfwd"):
+    	portforwd = help_input[8:]
+    	if portforwd:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/portfwd.py {portforwd}")
+    	else:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/portfwd.py")
+    if help_input.startswith("tunnel"):
+    	tunnels = help_input[8:]
+    	if tunnels:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/tunnel.py {tunnels}")
+    	else:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/tunnel.py")
+    if help_input.startswith("dragon"):
+    	dragonn = help_input[8:]
+    	if dragonn:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/dragon {dragonn}")
+    	else:
+    		os.system(f"python3 $INTFRAMEWORK_PATH/modules/commands/dragon")
+
     if help_input in help:
     	os.system("help")
     if not any(help_input.startswith(command) for command in valid_commands):
     	t.sleep(0.75)
-    	self_dir = os.getcwd()
-    	os.system("cd ~")
+    	if help_input.startswith("hydra"):
+    		os.system(help_input)
+    		add_job("working hydra")
+    	if help_input.startswith("ls"):
+    		os.system(help_input)
+    		add_job(help_input)
+    	if help_input.startswith("cd"):
+    		os.system(help_input)
+    		add_job(help_input)
+    	if help_input.startswith("int"):
+    		os.system(help_input)
+    		add_job(help_input)
+    	print(f"{Fore.GREEN}[+] Running command: {help_input}")
     	os.system(help_input)
     	add_job(help_input)
-    	os.system(f"cd {self_dir}")
     else:
     	pass
     try:
