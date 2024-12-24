@@ -4,6 +4,8 @@ import argparse
 import inttable
 import requests
 
+os.system("cd $INTFRAMEWORK_PATH")
+
 def fetch_data_from_url(url):
     try:
         response = requests.get(url)
