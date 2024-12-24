@@ -1526,15 +1526,19 @@ Examples:
     	if help_input.startswith("hydra"):
     		os.system(help_input)
     		add_job("working hydra")
+    		continue
     	if help_input.startswith("ls"):
     		os.system(help_input)
     		add_job(help_input)
+    		continue
     	if help_input.startswith("cd"):
     		os.system(help_input)
     		add_job(help_input)
+    		continue
     	if help_input.startswith("int"):
     		os.system(help_input)
     		add_job(help_input)
+    		continue
     	print(f"{Fore.GREEN}[+] Running command: {help_input}")
     	os.system(help_input)
     	add_job(help_input)
