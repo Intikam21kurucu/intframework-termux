@@ -48,6 +48,7 @@ import requests
 import subprocess
 import os
 import pathlib
+import subprocess
 import colorama
 from colorama import Fore, Back, Style
 from modules.commands.banner import *
@@ -358,6 +359,40 @@ def kill_job(job_id):
         del jobs[job_id]
     else:
         print(f"No job found with ID: {job_id}")
+
+# Global dictionary to store the options
+options = {
+    'LHOST': '0.0.0.0',
+    'LPORT': '4444',
+    'RHOST': '127.0.0.1',  # Default RHOST
+    'RPORT': '80',  # Default RPORT
+    'PAYLOAD': 'intframework/payloads/reverse_shell.py'
+}
+
+def set_option(option, value):
+    """Set a specific option if it exists and update the options dictionary."""
+    if option in options:
+        options[option] = value
+        print(f"[+] {option} set to {value}")
+    else:
+        print(f"[-] Invalid option: {option}")
+
+def show_options(required_options, filename):
+    """Show only the required options for the given script and execute external script."""
+    import subprocess
+    # Komutu çalıştır
+    global modules
+    try:
+    	response = subprocess.check_output(f"python3 {modules} --opts", shell=True, stderr=subprocess.STDOUT)
+    	# Eğer komut bir çıktı üretirse, response içeriğini kontrol edebilirsin
+    	print(response.decode())  # Çıktıyı yazdır
+    except subprocess.CalledProcessError as e:
+    	# Eğer komut çalışmazsa, hatayı yakala ve belirtilen mesajı yazdır
+    	print("""
+    NAME                     Current Setting                Required    Description
+    ------------------       ------------------------     ----------   ---------------------
+    """)
+    
 def exit():
 	os.system("exit")
 
@@ -781,8 +816,16 @@ def us_search(search_term):
     display_search_results(results)
 
 
-def run_module(skar3792=None):
+def run_module(skar3792=None, payload=options['PAYLOAD'], lhost=options['LHOST'], lport=options['LPORT']):
     global modules, running_pid
+    f = os.popen(f"python3 {modules} --opts")
+    output = f.read()
+    if "lhost" and "lport" and "payload" in output or "LHOST" and "LPORT" and "PAYLOAD" in output:
+    	int_output = True
+    if "lhost" and "lport" in output or "LHOST" and "LPORT" in output:
+    	has_no_payload = True
+    else:
+    	pass
     if modules:
         try:
             # Modülü `python3` ile çalıştır
@@ -790,6 +833,10 @@ def run_module(skar3792=None):
             os.system(f"python3 {modules}.py {skar3792}")
         except:
         	pass
+    if modules and int_output == True:
+    	os.system(f"python3 {modules}.py {lhost} {lport} {payload}")
+    if modules and has_no_payload == True:
+    	os.system(f"python3 {modules}.py {lhost} {lport}")
     else:
         print("No module loaded. Use 'use intframework::path::module_name' to load one.")
 
