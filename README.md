@@ -45,8 +45,8 @@ source ~/.bashrc
 
 ````
 cd $PREFIX/opt/
-mkdir -p intframework
-mv $PREFIX/opt/* $PREFIX/opt/intframework
+mkdir -p intframework-termux
+mv $PREFIX/opt/* $PREFIX/opt/intframework-termux
 ````
 
 **3. Before running intconsole:**
@@ -83,7 +83,7 @@ sudo apt install python3-base64
 sudo apt install python3-colorama
 sudo apt install python3-requests
 
-git clone https://github.com/Intikam21kurucu/intframework
+git clone https://github.com/Intikam21kurucu/intframework-termux
 
 cd intframework
 
@@ -106,7 +106,7 @@ pkg update && pkg upgrade
 pkg install python3
 pkg install git
 pip3 install requests
-git clone https://github.com/Intikam21kurucu/intframework
+git clone https://github.com/Intikam21kurucu/intframework-termux
 cd intframework
 
 chmod +x terbuild.sh
