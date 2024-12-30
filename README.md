@@ -20,7 +20,9 @@
 # Note
 ```
 We apologize, intconsoleV4 is not yet complete,
- but this will not be that easy because commands have been added to it, traceroute, many modules, exploits, almost everything in the cyber security world, so we kindly ask you to wait patiently, if you want, let's see if you want to download tools to other consoles, and in this 4th console, it has its own modules. and there will be commands, bye bye.
+
+ but this will not be that easy because commands have been added to it, traceroute, many modules, exploits, almost everything in the cyber security world, so we kindly ask you to wait patiently,
+ if you want, let's see if you want to download tools to other consoles, and in this 5th console, it has its own modules. and there will be commands, bye bye.
 ```
 
 # OLD GİF
@@ -74,23 +76,6 @@ inttable.console.run("command")
 
 [![Github Badge](https://github.com/Intikam21kurucu/intframework/blob/Intikam21kurucu-patch-1/%5BOrijinal%20boyut%5D%20Renkli%20Modern%20Yuvarlak%20Okul%20Logo_20240423_141004_0000.png?style=quare&labelColor=000&logo=Github&logoColor=white&link=link)](link) 
 
-# İNSTALL KALİ:
-````apt update & apt upgrade
-sudo apt install git
-sudo apt install python3-pyfiglet
-sudo apt install python3 
-sudo apt install python3-base64
-sudo apt install python3-colorama
-sudo apt install python3-requests
-
-git clone https://github.com/Intikam21kurucu/intframework-termux
-
-cd intframework
-
-chmod +x start_kali.sh
-
-./start_kali.sh
-````
 
 # EKRAN GÖRÜNTÜSÜ 
 
@@ -107,7 +92,7 @@ pkg install python3
 pkg install git
 pip3 install requests
 git clone https://github.com/Intikam21kurucu/intframework-termux
-cd intframework
+cd intframework-termux 
 
 chmod +x terbuild.sh
 
