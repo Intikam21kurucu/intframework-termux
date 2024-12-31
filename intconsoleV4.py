@@ -816,27 +816,38 @@ def us_search(search_term):
     display_search_results(results)
 
 
-def run_module(skar3792=None, payload=options['PAYLOAD'], lhost=options['LHOST'], lport=options['LPORT']):
-    global modules, running_pid
-    f = os.popen(f"python3 {modules} --opts")
-    output = f.read()
-    if "lhost" and "lport" and "payload" in output or "LHOST" and "LPORT" and "PAYLOAD" in output:
-    	int_output = True
-    if "lhost" and "lport" in output or "LHOST" and "LPORT" in output:
-    	has_no_payload = True
-    else:
-    	pass
+def run_module(skar3792=None, payload=None, lhost=None, lport=None):
+    global modules
+    int_output = False
+    has_no_payload = False
+
     if modules:
         try:
-            # Modülü `python3` ile çalıştır
+            # Komut çıktısını kontrol etmek için modülü çalıştır
+            f = os.popen(f"python3 {modules} --opts")
+            output = f.read().lower()
+            f.close()
+
+            # Çıktı kontrolü
+            if all(x in output for x in ["lhost", "lport", "payload"]):
+                int_output = True
+            elif all(x in output for x in ["lhost", "lport"]):
+                has_no_payload = True
+        except Exception as e:
+            print(f"Error during module inspection: {e}")
+            return
+
+        try:
+            # Modülü çalıştırma
             print(f"Running {modules}...")
-            os.system(f"python3 {modules}.py {skar3792}")
-        except:
-        	pass
-    if modules and int_output == True:
-    	os.system(f"python3 {modules}.py {lhost} {lport} {payload}")
-    if modules and has_no_payload == True:
-    	os.system(f"python3 {modules}.py {lhost} {lport}")
+            if int_output:
+                os.system(f"python3 {modules}.py {lhost} {lport} {payload}")
+            elif has_no_payload:
+                os.system(f"python3 {modules}.py {lhost} {lport}")
+            else:
+                os.system(f"python3 {modules}.py {skar3792}")
+        except Exception as e:
+            print(f"Error during module execution: {e}")
     else:
         print("No module loaded. Use 'use intframework::path::module_name' to load one.")
 
