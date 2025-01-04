@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import os
 import argparse
-import inttable
+try:
+    import inttable
+except:
+    pass
 import requests
 import subprocess
 
