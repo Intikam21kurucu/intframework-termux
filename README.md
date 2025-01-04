@@ -27,14 +27,6 @@ We apologize, intconsoleV4 is not yet complete,
  if you want, let's see if you want to download tools to other consoles, and in this 5th console, it has its own modules. and there will be commands, bye bye.
 ```
 
-# OLD GİF
-
------------------------------------------------
-
-![](https://github.com/Intikam21kurucu/intmages/blob/main/Start.gif)
-
------------------------------------------------
-
  # Instructions
 
 **Please do the following before running the program:**
