@@ -1,7 +1,10 @@
 
 # İntikam21 Framework
 
-![Gitter chat](https://github.com/Intikam21kurucu/intmages/blob/main/lv_0_20250104175232.gif)
+<p align="center">
+  <img src="https://github.com/Intikam21kurucu/intmages/blob/main/lv_0_20250104175232.gif" alt="Gitter chat">
+</p>
+
  
 ![Supported OS](https://img.shields.io/badge/Supported%20OS-Linux-yellow.svg)
 ![License](https://img.shields.io/badge/license-BSL--1.0-blue.svg)
