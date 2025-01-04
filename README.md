@@ -6,10 +6,11 @@
 ![Supported OS](https://img.shields.io/badge/Supported%20OS-Linux-yellow.svg)
 ![License](https://img.shields.io/badge/license-BSL--1.0-blue.svg)
 ![FRAMEWORK SÜRÜMÜ](https://img.shields.io/badge/FRAMEWORK%20SÜRÜMÜ-İntikam21--Framework%20console%20v4.1.09--dev--bbf096e-green.svg)
+ 
 ![Python](https://img.shields.io/badge/Python-3-green.svg)
 ![Exploits](https://img.shields.io/badge/EXPLOIT-2456-red.svg)
 ![Build](https://img.shields.io/badge/BUILD-1079-red.svg)
-![Modules](https://img.shields.io/badge/modules-547-red.svg) 
+![Modules](https://img.shields.io/badge/modules-589-red.svg) 
 
 **We are editing this repo!**
 
