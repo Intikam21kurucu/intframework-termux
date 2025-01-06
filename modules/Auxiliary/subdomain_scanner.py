@@ -1,3 +1,5 @@
+
+#!/usr/bin/env python3
 import requests
 
 def subdomain_scanner(target_domain, subdomains_file):
