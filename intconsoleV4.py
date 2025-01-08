@@ -697,17 +697,22 @@ def scan5115(interface):
 def use_module(command):
     global modules, modulename
     try:
-        # `intframework::auxiliary::module_name` gibi bir komut bekleniyor.
-        if command.startswith("use intframework::"):
-            module_path = command.split("::", 1)[1].replace("::", "/")  # Dosya yolu formatına çevir
-            modulename = module_path.split("/")[-1]
-            modules = module_path
-            get_input(modules=module_path, modulename="module")
-            print(f"Module {modulename} selected.")
+        # Komutun doğru formatta olup olmadığını kontrol et
+        if command.startswith("use intframework/") or command.startswith("use "):
+            # `use ` kısmını çıkar ve modül yolunu al
+            module_path = command.split(" ", 1)[1].replace("::", "/")
+            modulename = os.path.basename(module_path)  # Dosya adını al
+            modules = module_path  # Global değişken olarak belirle
+
+            # Modül bilgilerini kullanıcıya göster
+            get_input(modules=module_path, modulename=modulename)
+            print(f"\n{Fore.YELLOW}[*] Loading module: {Fore.CYAN}{module_path}{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[*] Module: {Fore.GREEN}{modulename}{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[*] Successfully loaded.{Style.RESET_ALL}\n")
         else:
-            print("Invalid command. Use 'use intframework::path::module_name'.")
+            print(f"\n{Fore.RED}[-] Invalid command.{Style.RESET_ALL} Use '{Fore.CYAN}use intframework/path/to/module_name{Style.RESET_ALL}' or '{Fore.CYAN}use path/to/module_name{Style.RESET_ALL}'.\n")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"{Fore.RED}[!] Error: {e}{Style.RESET_ALL}\n")
 
 def check_if_argparse_used(module_path):
     """Argparse kullanımı kontrol eder"""
@@ -815,41 +820,138 @@ def us_search(search_term):
     # Display the search results
     display_search_results(results)
 
+def detect_interpreter(module_path):
+    """
+    Detect the appropriate interpreter for a given file based on its extension, 
+    shebang line, or defaults for Intikam21 Framework.
+    """
+    try:
+        # 1. Dosya mevcut mu kontrol et
+        if not os.path.isfile(module_path):
+            print(f"{Fore.RED}[!] Module not found: {Fore.CYAN}{module_path}{Style.RESET_ALL}")
+            return None  # Dosya yoksa None döndür
+
+        # 2. Dosya uzantısını kontrol et
+        extension = os.path.splitext(module_path)[1].lower()
+        interpreter_by_extension = {
+            ".py2": "python2",   # Özel Python 2 uzantısı
+            ".py": "python3",    # Varsayılan olarak Python 3
+            ".c": "gcc",
+            ".cpp": "g++",
+            ".cs": "csharp",
+            ".js": "node",
+            ".rb": "ruby",
+            ".php": "php",
+            ".pl": "perl",
+            ".sh": "bash",
+            ".go": "go run",
+            ".sql": "sqlcmd",
+            ".html": "browser",
+            ".lua": "lua",
+            ".ps1": "powershell"  # PowerShell desteği
+        }
+
+        # Uzantıya göre yorumlayıcı belirle
+        if extension in interpreter_by_extension:
+            # Eğer uzantı ".py" ise, kullanıcı Python 2 için mi yoksa Python 3 için mi çalıştıracağını seçebilir.
+            if extension == ".py":
+                with open(module_path, 'r', buffering=1024) as file:
+                    first_line = file.readline().strip()
+                    if "python2" in first_line:  # Shebang Python 2 mi işaret ediyor?
+                        return "python2"
+                    else:
+                        return "python3"  # Varsayılan olarak Python 3
+            return interpreter_by_extension[extension]
+
+        # 3. Eğer uzantı bilinmiyorsa, shebang satırını kontrol et
+        with open(module_path, 'r', buffering=1024) as file:
+            first_line = file.readline().strip()
+            if first_line.startswith("#!"):
+                if "python2" in first_line:
+                    return "python2"
+                elif "python" in first_line or "python3" in first_line:
+                    return "python3"
+                elif "ruby" in first_line:
+                    return "ruby"
+                elif "php" in first_line:
+                    return "php"
+                elif "perl" in first_line:
+                    return "perl"
+                elif "node" in first_line or "javascript" in first_line:
+                    return "node"
+                elif "gcc" in first_line or "clang" in first_line:
+                    return "gcc"
+                elif "g++" in first_line or "cpp" in first_line:
+                    return "g++"
+                elif "bash" in first_line or "sh" in first_line:
+                    return "bash"
+                elif "go" in first_line:
+                    return "go run"
+                elif "lua" in first_line:
+                    return "lua"
+                elif "powershell" in first_line or "pwsh" in first_line:
+                    return "powershell"
+                elif "csharp" in first_line or "dotnet" in first_line:
+                    return "csharp"
+                elif "sql" in first_line:
+                    return "sqlcmd"
+                elif "html" in first_line:
+                    return "browser"
+
+        # 4. Ne uzantı ne de shebang tespit edilemiyorsa, varsayılan olarak Python 3 döndür
+        print(f"{Fore.YELLOW}[+] No valid interpreter found. Defaulting to python3 for module: {Fore.CYAN}{module_path}{Style.RESET_ALL}")
+        return "python3"
+
+    except Exception as e:
+        print(f"{Fore.RED}[!] Error detecting interpreter for {Fore.CYAN}{module_path}{Style.RESET_ALL}: {e}{Style.RESET_ALL}")
+        return "python3"  # Hata durumunda python3 döndür
 
 def run_module(skar3792=None, payload=None, lhost=None, lport=None):
     global modules
     int_output = False
     has_no_payload = False
 
-    if modules:
-        try:
-            # Komut çıktısını kontrol etmek için modülü çalıştır
-            f = os.popen(f"python3 {modules} --opts")
-            output = f.read().lower()
-            f.close()
+    if not modules:
+        print(f"{Fore.RED}[!] No module loaded. Use 'use intframework/path/to/module_name' to load one.{Style.RESET_ALL}")
+        return
 
-            # Çıktı kontrolü
-            if all(x in output for x in ["lhost", "lport", "payload"]):
-                int_output = True
-            elif all(x in output for x in ["lhost", "lport"]):
-                has_no_payload = True
-        except Exception as e:
-            print(f"Error during module inspection: {e}")
+    try:
+        # Modülü analiz et
+        print(f"{Fore.YELLOW}[*] Inspecting module: {Fore.CYAN}{modules}{Style.RESET_ALL}")
+        interpreter = detect_interpreter(modules)
+        
+        if not interpreter:
+            print(f"{Fore.RED}[!] Error: Could not detect the interpreter for the module.{Style.RESET_ALL}")
             return
+        
+        with open(modules, 'r') as f:
+            content = f.read().lower()
+        
+        if all(x in content for x in ["lhost", "lport", "payload"]):
+            int_output = True
+        elif all(x in content for x in ["lhost", "lport"]):
+            has_no_payload = True
 
-        try:
-            # Modülü çalıştırma
-            print(f"Running {modules}...")
-            if int_output:
-                os.system(f"python3 {modules}.py {lhost} {lport} {payload}")
-            elif has_no_payload:
-                os.system(f"python3 {modules}.py {lhost} {lport}")
-            else:
-                os.system(f"python3 {modules}.py {skar3792}")
-        except Exception as e:
-            print(f"Error during module execution: {e}")
-    else:
-        print("No module loaded. Use 'use intframework::path::module_name' to load one.")
+        print(f"{Fore.GREEN}[+] Module inspection complete.{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.RED}[!] Error during module inspection: {e}{Style.RESET_ALL}")
+        return
+
+    try:
+        # Modülü çalıştır
+        print(f"{Fore.YELLOW}[*] Running module: {Fore.CYAN}{modules}{Style.RESET_ALL}")
+        if int_output:
+            command = f"{interpreter} {modules} {lhost} {lport} {payload}"
+        elif has_no_payload:
+            command = f"{interpreter} {modules} {lhost} {lport}"
+        else:
+            command = f"{interpreter} {modules} {skar3792}"
+
+        print(f"{Fore.MAGENTA}[>] Command: {Fore.WHITE}{command}{Style.RESET_ALL}")
+        os.system(command)
+        print(f"{Fore.GREEN}[+] Module executed successfully.{Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{Fore.RED}[!] Error during module execution: {e}{Style.RESET_ALL}")
 
 def monitor_process(proc):
     """Çalışan modülü izler"""
