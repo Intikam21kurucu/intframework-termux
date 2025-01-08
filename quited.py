@@ -1593,7 +1593,7 @@ Examples:
     	import network_scan
     	from network_scan import *
     	scan_network()
-    if help_input.startswith("use intframework::"):
+    if help_input.startswith("use "):
         use_module(help_input)
     if help_input.startswith("run") and "<" in help_input and ">" in help_input:
         start_index = help_input.find('<') + 1
