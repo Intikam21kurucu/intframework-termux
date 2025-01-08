@@ -967,10 +967,10 @@ def get_input(modules=None, modulename=None, cdn=None):
     module = modules if modules is not None else ""
     module_name = modulename if modulename is not None else ""
     cd = cdn if cdn is not None else ""
-    prompt = (f"int4 payloads({Fore.RED}{payloads}{Fore.RESET})>{Style.RESET_ALL}" if payloads else
-              f"int4 {module_name}({Fore.RED}{module}{Fore.RESET}) >{Style.RESET_ALL}" if module and module_name else
-              f"int4 ({Fore.RED}{cd}{Fore.RESET}) >{Style.RESET_ALL}" if cd else
-              f"int4 >")
+    prompt = (f"{Fore.BLUE}int4-pro{Fore.RESET} payloads({Fore.RED}{payloads}{Fore.RESET})>{Style.RESET_ALL}" if payloads else
+              f"{Fore.BLUE}int4-pro{Fore.RESET} {module_name}({Fore.RED}{module}{Fore.RESET}) >{Style.RESET_ALL}" if module and module_name else
+              f"{Fore.BLUE}int4-pro{Fore.RESET} ({Fore.RED}{cd}{Fore.RESET}) >{Style.RESET_ALL}" if cd else
+              f"{Fore.BLUE}{Style.BRIGHT}int4-pro{Style.RESET_ALL} >")
 init(autoreset=True)
 get_input()
 banner()
@@ -985,6 +985,7 @@ global st
 from uuid_manager import *
 load_sessions()
 create_session("intrpc", "root@int")
+print(" ")
 global running_pid
 running_pid = None        
 while True:
