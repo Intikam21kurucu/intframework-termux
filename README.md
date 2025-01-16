@@ -79,7 +79,7 @@ pkg update && pkg upgrade
 pkg install python3
 pkg install git
 pip3 install requests
-git clone https://github.com/Intikam21kurucu/intframework-termux
+git clone https://github.com/intSpLoiT/intframework-termux
 cd intframework-termux 
 
 chmod +x terbuild.sh
