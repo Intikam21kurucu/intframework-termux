@@ -564,7 +564,7 @@ def search(modules, query):
     return results
 
 # Example modules dictionary:
-modules = {
+modulestr = {
     "introjan": "the best trojan horse tool",
     "oip": "the #3 information Gathering Tools",
     "intshark": "If you can't find anything, type intshark and find additional tools that we don't make or don't recognize.",
