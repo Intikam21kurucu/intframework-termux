@@ -76,6 +76,29 @@ class console:
 		parser: "no parser!",
 		var: 20
 		}
+    
+    @staticmethod
+    def read_int4():
+        json_content = None  # JSON içeriğini saklamak için bir değişken
+        normal_content = None  # Normal metin içeriğini saklamak için bir değişken
+
+        try:
+            with open(".int4", "r") as file:
+                content = file.read()
+
+                # JSON formatında ise, veriyi json_content değişkenine kaydedelim
+                try:
+                    json_content = json.loads(content)
+                except json.JSONDecodeError:
+                    # JSON değilse, sadece normal metin olarak kaydedelim
+                    normal_content = content
+
+            # Verileri birleştirip geri döndürüyoruz
+            return json_content, normal_content
+
+        except FileNotFoundError:
+            print("Dosya bulunamadı.")
+            return None, None
 	def get_commands(self):
 		commands = ["load_console_module", "run_console_function", "execute_command", "use", "show_exploits", "run_exploit", "list_plugins", "check", "wifi_scan", "login", "execute_get_input", "run_exploit"]
 		return commands
