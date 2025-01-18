@@ -134,7 +134,7 @@ def load_modules():
             elif mod in server_commands:
                 raise Exception(f'Duplicate module detected: {mod}')
 
-            import_module('modules.' + mod)
+            import_module('modules.post.all.' + mod)
             # TODO: Modül yapısını, gerekli fonksiyonlar için doğrulama
 
 # Bu dosya doğrudan çalıştırıldığında modülleri yükle
