@@ -22,7 +22,7 @@ lock = threading.Lock()
 
 class ShellHandler:
     def __init__(self):
-        self.prompt = "Intikam21> "
+        self.prompt = "intshell > "
         self.commands = {
             "exec": self.run_exec,
             "micrecord": self.run_micrecord,
